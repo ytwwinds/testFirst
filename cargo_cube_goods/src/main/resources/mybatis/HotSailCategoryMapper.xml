@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiayi.goods.mapper.HotSailCategoryMapper">
+
+    <update id="updateHotSailCategory" parameterType="com.jiayi.goods.bean.HotSailCategory">
+        update biz_hot_sail_category
+        <trim prefix="set" suffixOverrides=",">
+            update_time = now()
+            <if test="pid != null and pid != ''">
+                , pid=#{pid}
+            </if>
+            <if test="areaCode != null and areaCode != ''">
+                , area_code=#{areaCode}
+            </if>
+            <if test="cateCode != null and cateCode != ''">
+                , cate_code=#{cateCode}
+            </if>
+            <if test="cateName != null and cateName != ''">
+                , cate_name=#{cateName}
+            </if>
+            <if test="sort != null and sort != ''">
+                , sort=#{sort}
+            </if>
+            <if test="connectable != null and connectable != ''">
+                , connectable=#{connectable}
+            </if>
+            <if test="upload != null ">
+                , upload=#{upload}
+            </if>
+            <if test="del != null ">
+                , del=#{del}
+            </if>
+        </trim>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <update id="delHotSailCategory" parameterType="String">
+        update biz_hot_sail_category
+        set del= 1
+        where id= #{id}
+    </update>
+</mapper>

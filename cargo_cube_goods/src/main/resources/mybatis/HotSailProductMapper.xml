@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiayi.goods.mapper.HotSailProductMapper">
+    <select id="queryHotSailProduct" parameterType="String" resultType="com.jiayi.goods.bean.Goods">
+        SELECT p.id,
+        p.product_name As productName,
+        p.factory_name As factoryName,
+        p.product_unit As unit,
+        p.image,
+        p.remark,
+        p.ref_price As refPrice
+        FROM biz_hot_sail_product_conn pn
+        LEFT JOIN biz_product p on pn.product_id = p.id
+        <where>
+            <if test="cateId !=null and cateId !=''">
+                and pn.cate_id=#{cateId}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateHotSailProduct" parameterType="com.jiayi.goods.bean.HotSailProduct">
+        update biz_hot_sail_product_conn
+        set product_id=#{productId}
+        where cate_id=#{cateId}
+    </update>
+
+    <select id="selectHotSailProducts" parameterType="com.jiayi.goods.bean.HotSailProduct" resultType="com.jiayi.goods.bean.HotSailProduct">
+        select cate_id ,product_id As productId from biz_hot_sail_product_conn
+        where cate_id=#{cateId} and product_id=#{productId}
+    </select>
+</mapper>
